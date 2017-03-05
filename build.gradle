@@ -2,13 +2,146 @@ group 'practice'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'idea'
 
-sourceCompatibility = 1.5
+idea {
+    project {
+        languageLevel = '1.8'
+    }
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+ext.versions = [
+   dropwizard: '1.0.6',
+   feign     : '8.15.1',
+   guava     : '18.0',
+   guice     : '4.0',
+   jackson   : '2.6.1',
+   jdbi      : '2.55',
+   protobuf         : '2.5.0',
+   slf4j     : '1.7.12',
+]
+
+ext.libraries = [
+        dropwizard_client       : "io.dropwizard:dropwizard-client:${versions.dropwizard}",
+        dropwizard_configuration: "io.dropwizard:dropwizard-configuration:${versions.dropwizard}",
+        dropwizard_core         : "io.dropwizard:dropwizard-core:${versions.dropwizard}",
+        dropwizard_db           : "io.dropwizard:dropwizard-db:${versions.dropwizard}",
+        dropwizard_jackson      : "io.dropwizard:dropwizard-jackson:${versions.dropwizard}",
+        dropwizard_jdbi         : "io.dropwizard:dropwizard-jdbi:${versions.dropwizard}",
+        dropwizard_jersey       : "io.dropwizard:dropwizard-jersey:${versions.dropwizard}",
+        dropwizard_jetty        : "io.dropwizard:dropwizard-jetty:${versions.dropwizard}",
+        dropwizard_lifecycle    : "io.dropwizard:dropwizard-lifecycle:${versions.dropwizard}",
+        dropwizard_logging      : "io.dropwizard:dropwizard-logging:${versions.dropwizard}",
+        dropwizard_metrics      : "io.dropwizard:dropwizard-metrics:${versions.dropwizard}",
+        dropwizard_protobuf     : "io.dropwizard.modules:dropwizard-protobuf:${versions.dropwizard}-1",
+        dropwizard_servlets     : "io.dropwizard:dropwizard-servlets:${versions.dropwizard}",
+        dropwizard_testing      : "io.dropwizard:dropwizard-testing:${versions.dropwizard}",
+        dropwizard_util         : "io.dropwizard:dropwizard-util:${versions.dropwizard}",
+        dropwizard_validation   : "io.dropwizard:dropwizard-validation:${versions.dropwizard}",
+        feign                   : [
+                "com.netflix.feign:feign-core:${versions.feign}",
+                "com.netflix.feign:feign-jaxrs:${versions.feign}",
+                "com.netflix.feign:feign-jackson:${versions.feign}",
+                "com.netflix.feign:feign-slf4j:${versions.feign}",
+        ],
+        guava                   : "com.google.guava:guava:${versions.guava}",
+        guava_testlib           : "com.google.guava:guava-testlib:${versions.guava}",
+        guice                   : "com.google.inject:guice:${versions.guice}",
+        guice_assisted          : "com.google.inject.extensions:guice-assistedinject:${versions.guice}",
+        guice_multibindings     : "com.google.inject.extensions:guice-multibindings:${versions.guice}",
+        guice_web               : "com.google.inject.extensions:guice-servlet:${versions.guice}",
+        guice_throwing          : "com.google.inject.extensions:guice-throwingproviders:${versions.guice}",
+        httpclient              : 'org.apache.httpcomponents:httpclient:4.5.1',
+        httpcore                : 'org.apache.httpcomponents:httpcore:4.4.3',
+        jackson_libs            : [
+                "com.fasterxml.jackson.core:jackson-databind:${versions.jackson}",
+                "com.fasterxml.jackson.core:jackson-annotations:${versions.jackson}",
+                "com.fasterxml.jackson.core:jackson-core:${versions.jackson}",
+                "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:${versions.jackson}",
+                "com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:${versions.jackson}",
+                "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:${versions.jackson}",
+                "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${versions.jackson}",
+                "com.fasterxml.jackson.datatype:jackson-datatype-guava:${versions.jackson}",
+                "com.fasterxml.jackson.datatype:jackson-datatype-joda:${versions.jackson}",
+                "com.fasterxml.jackson.module:jackson-module-afterburner:${versions.jackson}",
+                "com.fasterxml.jackson.module:jackson-module-guice:${versions.jackson}",
+        ],
+        javax_inject            : 'javax.inject:javax.inject:1',
+        javax_rs_api            : 'javax.ws.rs:javax.ws.rs-api:2.0.1',
+        jdbi                    : "org.jdbi:jdbi:${versions.jdbi}",
+        joda_time               : "joda-time:joda-time:2.7",
+        jsr311_api              : 'javax.ws.rs:jsr311-api:1.1.1',
+        jul_to_slf4j            : "org.slf4j:jul-to-slf4j:${versions.slf4j}",
+        junit                   : "junit:junit:4.11",
+        logback_classic         : "ch.qos.logback:logback-classic:1.1.2",
+        logback_core            : "ch.qos.logback:logback-core:1.1.2",
+        lombok                  : "org.projectlombok:lombok:1.16.6",
+        mockito                 : "org.mockito:mockito-all:1.10.19",
+        powermock               : "org.powermock:powermock-easymock-release-full:1.6.2",
+        powermock_junit4        : "org.powermock:powermock-module-junit4:1.6.5",
+        powermock_core          : "org.powermock:powermock-core:1.6.5",
+        powermock_api_mockito   : "org.powermock:powermock-api-mockito:1.6.5",
+        assertj                 : "org.assertj:assertj-core:2.5.0",
+        mysql                   : 'mysql:mysql-connector-java:5.1.38',
+        protobuf_2              : "com.google.protobuf:protobuf-java:${versions.protobuf}",
+        protobuf_java_format    : 'com.googlecode.protobuf-java-format:protobuf-java-format:1.2',
+        slf4j_api               : "org.slf4j:slf4j-api:${versions.slf4j}",
+        testng                  : 'org.testng:testng:6.8.8',
+        validation_api          : 'javax.validation:validation-api:1.1.0.Final',
+        validation_impl         : [
+                'org.hibernate:hibernate-validator:5.2.2.Final',
+                'javax.el:javax.el-api:2.2.4',
+                'org.glassfish.web:javax.el:2.2.4',
+        ],
+        commons_csv             :  'org.apache.commons:commons-csv:1.4',
+        commons_io              : 'commons-io:commons-io:2.5'
+]
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile libraries.dropwizard_client
+    compile libraries.dropwizard_configuration
+    compile libraries.dropwizard_core
+    compile libraries.dropwizard_db
+    compile libraries.dropwizard_jackson
+    compile libraries.dropwizard_jdbi
+    compile libraries.dropwizard_jersey
+    compile libraries.dropwizard_jetty
+    compile libraries.dropwizard_lifecycle
+    compile libraries.dropwizard_logging
+    compile libraries.dropwizard_metrics
+    compile libraries.dropwizard_protobuf
+    compile libraries.dropwizard_servlets
+    compile libraries.dropwizard_testing
+    compile libraries.dropwizard_util
+    compile libraries.dropwizard_validation
+    compile libraries.guava
+    compile libraries.guava_testlib
+    compile libraries.guice
+    compile libraries.guice_assisted
+    compile libraries.guice_multibindings
+    compile libraries.guice_web
+    compile libraries.guice_throwing
+    compile libraries.jdbi
+    compile libraries.joda_time
+//    compile libraries.jsr311_api
+    compile libraries.jul_to_slf4j
+    compile libraries.jackson_libs
+    compile libraries.commons_csv
+    compile libraries.commons_io
+
+    testCompile libraries.junit
+    testCompile libraries.mockito
+    testCompile libraries.powermock
+    testCompile libraries.powermock_junit4
+    testCompile libraries.powermock_core
+    testCompile libraries.powermock_api_mockito
+    testCompile libraries.assertj
 }
