@@ -131,7 +131,6 @@ dependencies {
     compile libraries.guice_throwing
     compile libraries.jdbi
     compile libraries.joda_time
-//    compile libraries.jsr311_api
     compile libraries.jul_to_slf4j
     compile libraries.jackson_libs
     compile libraries.commons_csv
